@@ -2,19 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage ('build') {
-            steps {
-                sh 'touch temp.txt'
+        stage ('Parallel Checks') {
+            parallel {
+                stage('Static Analysis') {
+                    steps {
+                        echo 'Running linter...'
+                    }
+                }
+                stage ('Security Scan') {
+                    steps {
+                        echo 'Checking for vulnerabilities...'
+                    }
+                }
             }
         }
     }
-    post {
-        always {
-            sh 'rm -rf temp.txt'
-        }
-        failure {
-            echo 'Oh no! Something went wrong'
-        }
-    }
-
 }
