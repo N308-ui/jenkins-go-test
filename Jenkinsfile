@@ -31,9 +31,9 @@ pipeline {
     }
 
     post {
-//        success {
-//            archiveArtifacts artifacts: "${APP_NAME}"
-//        }
+        success {
+            archiveArtifacts artifacts: "${APP_NAME}"
+        }
         always {
             cleanWs()
         }
