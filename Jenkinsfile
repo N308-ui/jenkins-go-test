@@ -1,5 +1,4 @@
 pipeline {
-    agent any
 
     // Step 1: Add the environment block at the top level
     environment {
