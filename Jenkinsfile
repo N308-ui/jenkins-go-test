@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Step 2: Define your variable
         APP_NAME = "my-go-app"
+        GOCACHE  = "${WORKSPACE}/.cache"
     }
 
     agent { docker { image 'golang:latest' } }
