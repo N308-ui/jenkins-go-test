@@ -32,7 +32,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: "${APP_NAME}"
+            archiveArtifacts artifacts: "${APP_NAME}", fingerprint: true
         }
         cleanup {
             cleanWs()
