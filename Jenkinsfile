@@ -7,10 +7,7 @@ pipeline {
         APP_NAME = "my-go-app"
     }
 
-    tools {
-        go 'go-1.21' // Ensure this matches your Go tool name
-    }
-
+    agent { docker { image 'golang:1.21' } }
     stages {
         stage('Build') {
             steps {
