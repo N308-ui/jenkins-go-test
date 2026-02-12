@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy Gate') {
             options {
                 // Requirement: Abort if no action in 60 seconds
-                timeout(time: 60, unit: 'SECONDS')
+                timeout(time: 10, unit: 'SECONDS')
             }
             input {
                 // Requirement: Custom button message
