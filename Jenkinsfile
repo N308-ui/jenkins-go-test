@@ -1,17 +1,20 @@
 pipeline {
     agent any
-    tools { go 'go-1.21' } // Ensure this matches your tool name
+
     stages {
-        stage('Build') {
+        stage ('build') {
             steps {
-                sh 'go build -o app main.go'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Running Go Tests...'
-                sh 'go test ./...'
+                sh 'touch temp.txt'
             }
         }
     }
+    post {
+        always {
+            sh 'rm -rf temp.txt'
+        }
+        failure {
+            echo 'Oh no! Something went wrong'
+        }
+    }
+
 }
