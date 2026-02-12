@@ -30,12 +30,12 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            archiveArtifacts artifacts: "${APP_NAME}"
-        }
-        always {
-            cleanWs()
-        }
-    }
+//    post {
+//        success {
+//            archiveArtifacts artifacts: "${APP_NAME}"
+//        }
+//        always {
+//            cleanWs()
+//        }
+//    }
 }
