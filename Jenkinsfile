@@ -3,7 +3,6 @@ pipeline {
 
     stages {
         stage ('Parallel Checks') {
-            parallel {
                 stage('Static Analysis') {
                     steps {
                         echo 'Running linter...'
@@ -14,7 +13,6 @@ pipeline {
                         echo 'Checking for vulnerabilities...'
                     }
                 }
-            }
         }
     }
 }
