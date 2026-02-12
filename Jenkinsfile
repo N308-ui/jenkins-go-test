@@ -1,38 +1,38 @@
 pipeline {
+    agent any
 
-    // Step 1: Add the environment block at the top level
-    environment {
-        // Step 2: Define your variable
-        APP_NAME = "my-go-app"
-        GOCACHE  = "${WORKSPACE}/.cache"
-    }
-
-    agent { docker { image 'golang:latest' } }
     stages {
         stage('Build') {
             steps {
-                echo "Starting build for ${env.APP_NAME}..."
-
-                // Step 3: Use double quotes to expand the variable
-                // This becomes: go build -o my-go-app main.go
-                sh "go build -o ${APP_NAME} main.go"
+                echo 'Compiling code and preparing artifacts...'
             }
         }
 
-        stage('Verify') {
+        stage('Test') {
             steps {
-                // You can reuse the variable in any stage
-                sh "ls -lh ${APP_NAME}"
+                echo 'Running unit tests...'
             }
         }
-    }
 
-    post {
-        success {
-            archiveArtifacts artifacts: "${APP_NAME}", fingerprint: true
+        stage('Deploy Gate') {
+            options {
+                // Requirement: Abort if no action in 60 seconds
+                timeout(time: 60, unit: 'SECONDS')
+            }
+            input {
+                // Requirement: Custom button message
+                message "Proceed with Deployment?"
+                ok "Approve"
+            }
+            steps {
+                echo "Gate cleared!"
+            }
         }
-        cleanup {
-            cleanWs()
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying to production environment...'
+            }
         }
     }
 }
