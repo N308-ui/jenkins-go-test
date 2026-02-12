@@ -34,7 +34,7 @@ pipeline {
         success {
             archiveArtifacts artifacts: "${APP_NAME}"
         }
-        always {
+        cleanup {
             cleanWs()
         }
     }
