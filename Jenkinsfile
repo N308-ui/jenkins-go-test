@@ -13,12 +13,11 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
+                    export PATH=$PATH:$(go env GOPATH)/bin
                     go install github.com/jstemmer/go-junit-report@latest
-
                     go test -v ./... 2>&1 | go-junit-report > report.xml
                 '''
             }
-
             post {
                 always {
                     junit allowEmptyResults: true, testResults: '**/*.xml'
