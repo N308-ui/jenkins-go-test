@@ -10,7 +10,16 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'Running unit tests...'
+                sh '''
+                    go install https://github.com/jstemmer/go-junit-report
+                    go test -v ./... 2>&1 | go-junit-report > report.xml
+                '''
+            }
+
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: '**/*.xml'
+                }
             }
         }
 
@@ -46,5 +55,8 @@ pipeline {
                 echo 'Deploying to production environment...'
             }
         }
+    }
+    post {
+
     }
 }
