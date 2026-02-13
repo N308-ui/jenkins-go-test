@@ -29,7 +29,19 @@ pipeline {
             }
         }
 
+        stage ('Notify') {
+            when {
+                not {
+                    branch 'master'
+                }
+            }
+            steps {
+                echo 'not master branch'
+            }
+        }
+
         stage('Deploy') {
+            when { branch 'master' }
             steps {
                 echo 'Deploying to production environment...'
             }
