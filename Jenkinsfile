@@ -13,7 +13,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                    go install https://github.com/jstemmer/go-junit-report
+                    go install github.com/jstemmer/go-junit-report@latest
+
                     go test -v ./... 2>&1 | go-junit-report > report.xml
                 '''
             }
